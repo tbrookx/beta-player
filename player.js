@@ -1,6 +1,6 @@
 async function loadPlaylist() {
-  const repo = "tbrookx/beta-player"; 
-  const branch = "main"; 
+  const repo = "tbrookx/beta-player"; // your GitHub username/repo
+  const branch = "main"; // or 'master'
   const apiUrl = `https://api.github.com/repos/${repo}/contents/music?ref=${branch}`;
 
   try {
@@ -47,6 +47,9 @@ async function loadPlaylist() {
       // Highlight current track
       list.children[index].classList.add("playing");
       currentPlayingIndex = index;
+
+      // Auto-scroll to make the track visible
+      list.children[index].scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
 
     // Auto-advance when track ends
