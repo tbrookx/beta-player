@@ -1,6 +1,6 @@
 async function loadPlaylist() {
   const repo = "tbrookx/beta-player"; // replace with your GitHub username/repo
-  const branch = "main"; // or 'master'
+  const branch = "main";
   const apiUrl = `https://api.github.com/repos/${repo}/contents/music?ref=${branch}`;
   const response = await fetch(apiUrl);
   const files = await response.json();
