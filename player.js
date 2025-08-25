@@ -1,6 +1,6 @@
 async function loadPlaylist() {
   const repo = "tbrookx/beta-player"; 
-  const branch = "main";
+  const branch = "main"; 
   const apiUrl = `https://api.github.com/repos/${repo}/contents/music?ref=${branch}`;
 
   try {
@@ -22,24 +22,41 @@ async function loadPlaylist() {
     const list = document.getElementById("playlist");
     list.innerHTML = ""; // clear old list
 
-    let currentPlayingLi = null;
+    let currentPlayingIndex = null;
 
-    tracks.forEach(track => {
+    tracks.forEach((track, index) => {
       const li = document.createElement("li");
       li.textContent = track.title;
 
       li.addEventListener("click", () => {
-        audio.src = track.url;
-        audio.play().catch(err => console.error("Playback error:", err));
-
-        // Remove highlight from previous track
-        if (currentPlayingLi) currentPlayingLi.classList.remove("playing");
-        // Highlight current track
-        li.classList.add("playing");
-        currentPlayingLi = li;
+        playTrack(index);
       });
 
       list.appendChild(li);
+    });
+
+    function playTrack(index) {
+      audio.src = tracks[index].url;
+      audio.play().catch(err => console.error("Playback error:", err));
+
+      // Remove previous highlight
+      if (currentPlayingIndex !== null) {
+        list.children[currentPlayingIndex].classList.remove("playing");
+      }
+
+      // Highlight current track
+      list.children[index].classList.add("playing");
+      currentPlayingIndex = index;
+    }
+
+    // Auto-advance when track ends
+    audio.addEventListener("ended", () => {
+      if (currentPlayingIndex !== null && currentPlayingIndex < tracks.length - 1) {
+        playTrack(currentPlayingIndex + 1);
+      } else {
+        // Optional: loop back to first track
+        // playTrack(0);
+      }
     });
 
   } catch (err) {
