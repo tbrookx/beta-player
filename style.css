@@ -62,15 +62,15 @@ audio{
   transition: background 0.2s;
 }
 
-/* Hover effect */
-#playlist li:hover{
-  background:#c0c0ff;
-}
-
 /* Highlight currently playing track */
 #playlist li.playing{
-  background:#8080ff;
+  background:#8080ff !important;  /* force highlight */
   font-weight:bold;
+}
+
+/* Hover effect (only if not playing) */
+#playlist li:not(.playing):hover{
+  background:#c0c0ff;
 }
 
 /* Scrollbar style for playlist */
