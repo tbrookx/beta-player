@@ -1,5 +1,5 @@
 async function loadPlaylist() {
-  const repo = "tbrookx/beta-player";
+  const repo = "tbrookx/beta-player"; 
   const branch = "main";
   const apiUrl = `https://api.github.com/repos/${repo}/contents/music?ref=${branch}`;
 
@@ -22,13 +22,23 @@ async function loadPlaylist() {
     const list = document.getElementById("playlist");
     list.innerHTML = ""; // clear old list
 
+    let currentPlayingLi = null;
+
     tracks.forEach(track => {
       const li = document.createElement("li");
       li.textContent = track.title;
+
       li.addEventListener("click", () => {
         audio.src = track.url;
         audio.play().catch(err => console.error("Playback error:", err));
+
+        // Remove highlight from previous track
+        if (currentPlayingLi) currentPlayingLi.classList.remove("playing");
+        // Highlight current track
+        li.classList.add("playing");
+        currentPlayingLi = li;
       });
+
       list.appendChild(li);
     });
 
