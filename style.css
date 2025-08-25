@@ -1,0 +1,14 @@
+body{
+  background:#008080; font-family: Tahoma, sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;
+}
+.window{
+  background:#C0C0C0; border:2px solid #000; width:350px; border-radius:4px; box-shadow:4px 4px 0 #000;
+}
+.title-bar{
+  background:#000080; color:#fff; padding:4px 8px; font-weight:bold; border-bottom:2px solid #fff;
+}
+.content{padding:10px;}
+audio{width:100%; margin-bottom:10px;}
+#playlist{list-style:none; padding:0; margin:0;}
+#playlist li{background:#fff; border:1px solid #000; margin:3px 0; padding:4px; cursor:pointer; font-size:14px;}
+#playlist li:hover{background:#c0c0ff;}
